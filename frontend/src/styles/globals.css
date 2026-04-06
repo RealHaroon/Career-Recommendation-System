@@ -1,26 +1,6 @@
 @import "tailwindcss";
 
-@source "../app/**/*.{js,jsx,ts,tsx}";
-@source "../components/**/*.{js,jsx,ts,tsx}";
-
-:root {
-    --color-primary: #0f766e;
-    --font-body: 'Inter', sans-serif;
-}
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-::selection {
-    background: #ccfbf1;
-    color: #134e4a;
-}
-
-:focus-visible {
-    outline: 2px solid #0f766e;
-    outline-offset: 3px;
-    border-radius: 4px;
-}
+@source "../app";
+@source "../components";
+@source "../store";
+@source "../lib";
