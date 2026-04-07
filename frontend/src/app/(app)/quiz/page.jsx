@@ -6,28 +6,99 @@ import useQuizStore from "@/store/quizStore";
 
 const STEPS = [
     {
-        title: "Personal & Education",
+        title: "Education Background",
         fields: [
-            { label: "Gender", key: "gender", type: "select", options: ["Male", "Female", "Other"] },
-            { label: "Undergraduate Course", key: "ug_course", type: "select", options: ["B.Tech", "BCA", "BSc", "BBA", "BCom", "BDes", "Diploma", "MSc"] },
-            { label: "UG Specialization", key: "ug_specialization", type: "select", options: ["Computer Science", "Information Technology", "Software Engineering", "Electronics", "Mathematics", "Statistics", "Business Administration", "Commerce", "Management", "Design", "Visual Arts", "Physics", "Web Technology", "Engineering"] },
+            { label: "Gender", key: "gender", type: "select",
+              options: ["Male", "Female"] },
+            { label: "Undergraduate Degree", key: "ug_degree", type: "select",
+              options: ["BSCS", "BSSE", "BSIT", "BCS", "BE", "BBA", "BS Economics", "MCS"] },
+            { label: "Specialization", key: "specialization", type: "select",
+              options: ["Computer Science", "Software Engineering", "Information Technology",
+                        "Artificial Intelligence", "Cyber Security", "Data Science",
+                        "Electrical Engineering", "Business Administration"] },
         ],
     },
     {
         title: "Academic Performance",
         fields: [
-            { label: "CGPA / Percentage", key: "cgpa", type: "number", placeholder: "e.g. 8.5" },
-            { label: "Did you complete any certification?", key: "has_certification", type: "select", options: ["Yes", "No"] },
-            { label: "Certification Title (if any)", key: "certification_title", type: "text", placeholder: "e.g. AWS Solutions Architect" },
-            { label: "Masters Degree (if any)", key: "masters_field", type: "text", placeholder: "e.g. M.Tech in CS or No Masters" },
+            { label: "CGPA (0.0 – 4.0)", key: "cgpa", type: "number", placeholder: "e.g. 3.2",
+              min: 0, max: 4.0, step: 0.01 },
+            { label: "Do you have a certification?", key: "has_certification", type: "select",
+              options: ["Yes", "No"] },
+            { label: "Certification Title", key: "certification_title", type: "select",
+              options: ["None", "Oracle Java Certification", "AWS Certified Developer",
+                        "Google Associate Engineer", "Meta Front-End Developer",
+                        "freeCodeCamp Web Dev", "Full Stack Web Development",
+                        "Google Associate Android Developer", "Flutter Development Bootcamp",
+                        "React Native Certificate", "IBM Data Science", "Google Data Analytics",
+                        "DataCamp Data Scientist", "Coursera ML Specialization",
+                        "Deep Learning Specialization", "TensorFlow Developer Certificate",
+                        "AWS ML Specialty", "Google ML Engineer", "AWS Solutions Architect",
+                        "Microsoft Azure Administrator", "Google Cloud Professional",
+                        "CompTIA Security+", "CEH Ethical Hacker", "CISSP",
+                        "CCNA", "CCNP", "CompTIA Network+",
+                        "Oracle DBA Certification", "MongoDB DBA", "AWS Database Specialty",
+                        "Google UX Design Certificate", "Figma Certificate", "Adobe XD Certificate",
+                        "AWS DevOps Engineer", "Docker Certified Associate", "Kubernetes CKA",
+                        "CBAP Certification", "Power BI Certificate", "Google Project Management",
+                        "ITIL Foundation", "PMP Certification", "Scrum Master PSM",
+                        "DataCamp Data Analyst", "Excel MO-200",
+                        "Unity Certified Developer", "Unreal Engine Certificate",
+                        "GameDev.tv Certificate"] },
+            { label: "Masters Degree (if any)", key: "masters_field", type: "select",
+              options: ["No Masters", "MS CS", "MS SE", "MS Software Engineering",
+                        "MS Web Technologies", "MS Mobile Computing",
+                        "MS Data Science", "MS Statistics", "MS AI",
+                        "MS Cloud Computing", "MS Information Systems",
+                        "MS Cyber Security", "MS Information Security",
+                        "MS Telecommunications", "MS Computer Networks",
+                        "MS HCI", "MS Design",
+                        "MS Business Analytics", "MS Project Management",
+                        "MBA", "MCS", "PhD CS",
+                        "MS Game Development"] },
         ],
     },
     {
         title: "Skills & Interests",
         fields: [
-            { label: "Your Interests", key: "interests", type: "text", placeholder: "e.g. Artificial Intelligence, Deep Learning" },
-            { label: "Your Skills", key: "skills", type: "text", placeholder: "e.g. Python, TensorFlow, SQL" },
-            { label: "Are you currently working?", key: "is_working", type: "select", options: ["Yes", "No"] },
+            { label: "Primary Interest Area", key: "interests", type: "select",
+              options: [
+                "Programming, Problem Solving, Software Development",
+                "Web Development, Frontend, Backend Development",
+                "Mobile Development, App Design, Programming",
+                "Data Analysis, Machine Learning, Statistics",
+                "Artificial Intelligence, Deep Learning, Research",
+                "Cloud Computing, Infrastructure, DevOps",
+                "Cyber Security, Ethical Hacking, Networking",
+                "Networking, Hardware, System Administration",
+                "Database Management, Data Modeling, Backend",
+                "UI Design, User Experience, Graphic Design",
+                "Automation, Cloud, CI/CD, System Design",
+                "Business Strategy, Data Analysis, Management",
+                "IT Management, Business Analysis, Consulting",
+                "Data Visualization, Reporting, SQL, Excel",
+                "Game Design, Programming, 3D Modeling, Unity",
+              ]},
+            { label: "Primary Skills", key: "skills", type: "select",
+              options: [
+                "Python, Java, C++, Git, SQL",
+                "HTML, CSS, JavaScript, React, Node.js",
+                "Flutter, React Native, Kotlin, Swift, Java",
+                "Python, R, Machine Learning, SQL, Tableau",
+                "Python, TensorFlow, PyTorch, NLP, Mathematics",
+                "AWS, Azure, Docker, Kubernetes, Terraform",
+                "Linux, Ethical Hacking, Python, Cryptography, SIEM",
+                "CCNA, TCP/IP, Routing, Firewalls, Linux",
+                "SQL, Oracle, MySQL, MongoDB, PostgreSQL",
+                "Figma, Adobe XD, Photoshop, Prototyping, CSS",
+                "Docker, Kubernetes, Jenkins, AWS, CI/CD",
+                "Excel, SQL, Power BI, Communication, JIRA",
+                "ERP, Project Management, SQL, Communication, Excel",
+                "Excel, SQL, Power BI, Python, Tableau",
+                "Unity, C#, Unreal Engine, Blender, C++",
+              ]},
+            { label: "Currently Working?", key: "is_working", type: "select",
+              options: ["Yes", "No"] },
         ],
     },
 ];
@@ -38,13 +109,14 @@ export default function QuizPage() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
-    const step = STEPS[currentStep];
+    const step   = STEPS[currentStep];
     const isLast = currentStep === STEPS.length - 1;
 
+    const OPTIONAL_KEYS = ["certification_title", "masters_field"];
+
     const handleNext = () => {
-        const current = STEPS[currentStep];
-        for (const field of current.fields) {
-            if (!answers[field.key] && field.key !== "certification_title" && field.key !== "masters_field") {
+        for (const field of STEPS[currentStep].fields) {
+            if (!answers[field.key] && !OPTIONAL_KEYS.includes(field.key)) {
                 setError(`Please fill in: ${field.label}`);
                 return;
             }
@@ -59,15 +131,15 @@ export default function QuizPage() {
         try {
             const payload = {
                 ...answers,
-                cgpa: parseFloat(answers.cgpa),
+                cgpa:                parseFloat(answers.cgpa),
                 certification_title: answers.certification_title || "None",
-                masters_field: answers.masters_field || "No Masters",
+                masters_field:       answers.masters_field       || "No Masters",
             };
             const { data } = await api.post("/recommend", payload);
             setResult(data.data);
             router.push("/results");
         } catch (err) {
-            setError(err.response?.data?.message || "Something went wrong");
+            setError(err.response?.data?.message || "Something went wrong. Is the ML service running?");
         } finally {
             setLoading(false);
         }
@@ -94,11 +166,8 @@ export default function QuizPage() {
 
             <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-8">
                 {error && (
-                    <div className="bg-red-50 text-red-600 text-sm px-4 py-3 rounded-lg mb-6">
-                        {error}
-                    </div>
+                    <div className="bg-red-50 text-red-600 text-sm px-4 py-3 rounded-lg mb-6">{error}</div>
                 )}
-
                 <div className="space-y-6">
                     {step.fields.map((field) => (
                         <div key={field.key}>
@@ -118,13 +187,13 @@ export default function QuizPage() {
                                 </select>
                             ) : (
                                 <input
-                                    type={field.type}
+                                    type="number"
                                     value={answers[field.key] || ""}
                                     onChange={(e) => setAnswer(field.key, e.target.value)}
                                     placeholder={field.placeholder}
-                                    min={field.type === "number" ? 0 : undefined}
-                                    max={field.type === "number" ? 10 : undefined}
-                                    step={field.type === "number" ? 0.1 : undefined}
+                                    min={field.min}
+                                    max={field.max}
+                                    step={field.step}
                                     className="w-full border border-slate-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-teal-500 transition-colors"
                                 />
                             )}
@@ -146,14 +215,14 @@ export default function QuizPage() {
                             disabled={loading}
                             className="px-6 py-2.5 text-sm bg-teal-700 text-white rounded-lg hover:bg-teal-800 transition-colors disabled:opacity-60 font-medium"
                         >
-                            {loading ? "Analyzing profile..." : "Get My Recommendation"}
+                            {loading ? "Analyzing your profile..." : "Get My Recommendation →"}
                         </button>
                     ) : (
                         <button
                             onClick={handleNext}
                             className="px-6 py-2.5 text-sm bg-teal-700 text-white rounded-lg hover:bg-teal-800 transition-colors font-medium"
                         >
-                            Next Step
+                            Next Step →
                         </button>
                     )}
                 </div>

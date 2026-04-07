@@ -2,15 +2,14 @@ const { getRecommendation, getUserHistory } = require("../services/recommend.ser
 const ApiResponse = require("../utils/ApiResponse");
 const ApiError = require("../utils/ApiError");
 
-const predict = async (req, res, next) => {
-    try {
-        const required = [
-            "gender", "ug_course", "ug_specialization", "interests",
-            "skills", "cgpa", "has_certification", "certification_title",
-            "is_working", "masters_field"
-        ];
+const REQUIRED_FIELDS = [
+    "gender", "ug_degree", "specialization", "interests",
+    "skills", "cgpa", "has_certification", "is_working"
+];
 
-        const missing = required.filter((f) => req.body[f] === undefined || req.body[f] === "");
+const recommend = async (req, res, next) => {
+    try {
+        const missing = REQUIRED_FIELDS.filter((f) => !req.body[f] && req.body[f] !== 0);
         if (missing.length > 0) {
             return next(new ApiError(400, `Missing fields: ${missing.join(", ")}`));
         }
@@ -31,4 +30,4 @@ const history = async (req, res, next) => {
     }
 };
 
-module.exports = { predict, history };
+module.exports = { recommend, history };
